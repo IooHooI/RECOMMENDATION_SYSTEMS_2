@@ -105,6 +105,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+metastore_db
 .idea/
 data/datasets/
 notebooks/EXPERIMENTS.ipynb
