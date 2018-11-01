@@ -32,5 +32,4 @@ members.expiration_date = pd.to_datetime(members.expiration_date, format='%Y%m%d
 class TestPipeline(unittest.TestCase):
 
     def test_case_1(self):
-
         recommender = fmbr.FactorizationMachineBasedRecommender()
