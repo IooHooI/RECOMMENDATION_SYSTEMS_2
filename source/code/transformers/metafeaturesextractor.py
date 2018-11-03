@@ -9,12 +9,12 @@ class MetaFeaturesExtractor(BaseEstimator, TransformerMixin):
         self.X_with_meta = None
 
     def fit(self, X, y=None, **fit_params):
-        self.X_with_meta = X.copy()
-        self.X_with_meta = pd.merge(self.X_with_meta, self.user_meta, on='msno', how='left')
-        self.X_with_meta = pd.merge(self.X_with_meta, self.item_meta, on='song_id', how='left')
         return self
 
     def transform(self, X):
+        self.X_with_meta = X.copy()
+        self.X_with_meta = pd.merge(self.X_with_meta, self.user_meta, on='msno', how='left')
+        self.X_with_meta = pd.merge(self.X_with_meta, self.item_meta, on='song_id', how='left')
         self.X_with_meta[
             'days_registered'
         ] = self.X_with_meta.expiration_date - self.X_with_meta.registration_init_time
