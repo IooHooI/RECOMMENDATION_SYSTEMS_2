@@ -6,8 +6,8 @@ class MetaFeaturesExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, user_meta=None, item_meta=None):
         self.user_meta = user_meta
         self.item_meta = item_meta
-        self.user_meta.registration_init_time = pd.to_datetime(self.user_meta.registration_init_time, '%Y%m%d')
-        self.user_meta.expiration_date = pd.to_datetime(self.user_meta.expiration_date, '%Y%m%d')
+        self.user_meta.registration_init_time = pd.to_datetime(self.user_meta.registration_init_time, format='%Y%m%d')
+        self.user_meta.expiration_date = pd.to_datetime(self.user_meta.expiration_date, format='%Y%m%d')
         self.X_with_meta = None
 
     def fit(self, X, y=None, **fit_params):
