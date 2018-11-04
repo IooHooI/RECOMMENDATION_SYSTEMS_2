@@ -8,8 +8,9 @@ class SongFrequencyBasedRecommender(BaseEstimator, ClassifierMixin):
         self.unique_songs_count = None
         self.songs_popularity = None
 
-    def fit(self, X, y=None):
+    def fit(self, X, y=None, **kwargs):
         self.unique_songs_count = y.sum()
+
         self.songs_popularity = pd.concat(
             [
                 X,
@@ -18,10 +19,14 @@ class SongFrequencyBasedRecommender(BaseEstimator, ClassifierMixin):
             axis=1
         ).groupby('song_id')['prob'].apply(lambda x: sum(x) / self.unique_songs_count).to_dict()
 
-    def predict(self, X, y=None):
+        return self
+
+    def predict(self, X, y=None, **kwargs):
         y_pred = [self.songs_popularity.get(song_id, 0.5) for song_id in X.song_id]
+
         return y_pred
 
     def score(self, X, y=None, **kwargs):
         y_pred = self.predict(X, y)
+
         return roc_auc_score(y, y_pred)

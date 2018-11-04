@@ -1,4 +1,5 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
+from sklearn.metrics import roc_auc_score
 from tffm import TFFMClassifier
 import tensorflow as tf
 
@@ -17,12 +18,16 @@ class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
 
     def fit(self, X, y=None):
         self.model.fit(X, y, show_progress=True)
-        pass
+        return self
 
     def predict(self, X, y=None):
+        return self.model.predict_proba(X)[:, 1]
 
-        pass
+    def fit_predict(self, X, y=None):
+        self.fit(X, y)
+        return self.predict(X)
 
     def score(self, X, y=None, **kwargs):
+        y_pred = self.predict(X, y)
 
-        pass
+        return roc_auc_score(y, y_pred)

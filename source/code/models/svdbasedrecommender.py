@@ -15,7 +15,7 @@ class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
         self.index2user = None
         self.index2song = None
 
-    def fit(self, X, y=None):
+    def fit(self, X, y=None, **kwargs):
 
         self.unique_users = list(set(X.msno))
 
@@ -48,7 +48,7 @@ class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
 
         self.song_representations = svd.components_
 
-    def predict(self, X, y=None):
+    def predict(self, X, y=None, **kwargs):
         y_pred = []
 
         for user, song in tqdm(zip(X.msno.values, X.song_id.values)):
