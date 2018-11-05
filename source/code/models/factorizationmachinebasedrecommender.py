@@ -5,7 +5,8 @@ import tensorflow as tf
 
 
 class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
-    def __init__(self):
+    def __init__(self, show_progress=False):
+        self.show_progress = show_progress
         self.model = TFFMClassifier(
             order=6,
             rank=10,
@@ -17,7 +18,7 @@ class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
         )
 
     def fit(self, X, y=None):
-        self.model.fit(X, y, show_progress=True)
+        self.model.fit(X, y, show_progress=self.show_progress)
 
         return self
 
