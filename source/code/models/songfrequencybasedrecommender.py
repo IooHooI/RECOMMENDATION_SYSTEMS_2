@@ -21,12 +21,17 @@ class SongFrequencyBasedRecommender(BaseEstimator, ClassifierMixin):
 
         return self
 
-    def predict(self, X, y=None, **kwargs):
+    def predict_proba(self, X, y=None, **kwargs):
         y_pred = [self.songs_popularity.get(song_id, 0.5) for song_id in X.song_id]
 
         return y_pred
 
+    def fit_predict_proba(self, X, y=None):
+        self.fit(X, y)
+
+        return self.predict_proba(X)
+
     def score(self, X, y=None, **kwargs):
-        y_pred = self.predict(X, y)
+        y_pred = self.predict_proba(X, y)
 
         return roc_auc_score(y, y_pred)

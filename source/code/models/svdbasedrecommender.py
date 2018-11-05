@@ -52,7 +52,7 @@ class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
 
         return self
 
-    def predict(self, X, y=None, **kwargs):
+    def predict_proba(self, X, y=None, **kwargs):
         y_pred = []
 
         for user, song in tqdm(zip(X.msno.values, X.song_id.values)):
@@ -72,7 +72,12 @@ class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
 
         return y_pred_std
 
+    def fit_predict_proba(self, X, y=None):
+        self.fit(X, y)
+
+        return self.predict_proba(X)
+
     def score(self, X, y=None, **kwargs):
-        y_pred = self.predict(X, y)
+        y_pred = self.predict_proba(X, y)
 
         return roc_auc_score(y, y_pred)

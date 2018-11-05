@@ -21,15 +21,15 @@ class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
 
         return self
 
-    def predict(self, X, y=None):
+    def predict_proba(self, X, y=None):
         return self.model.predict_proba(X)[:, 1]
 
-    def fit_predict(self, X, y=None):
+    def fit_predict_proba(self, X, y=None):
         self.fit(X, y)
 
-        return self.predict(X)
+        return self.predict_proba(X)
 
     def score(self, X, y=None, **kwargs):
-        y_pred = self.predict(X, y)
+        y_pred = self.predict_proba(X, y)
 
         return roc_auc_score(y, y_pred)
