@@ -18,6 +18,7 @@ class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
 
     def fit(self, X, y=None):
         self.model.fit(X, y, show_progress=True)
+
         return self
 
     def predict(self, X, y=None):
@@ -25,6 +26,7 @@ class FactorizationMachineBasedRecommender(BaseEstimator, ClassifierMixin):
 
     def fit_predict(self, X, y=None):
         self.fit(X, y)
+
         return self.predict(X)
 
     def score(self, X, y=None, **kwargs):

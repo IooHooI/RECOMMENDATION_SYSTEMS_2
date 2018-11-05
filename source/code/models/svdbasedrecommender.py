@@ -8,6 +8,8 @@ import numpy as np
 
 class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
     def __init__(self):
+        self.users_representations = None
+        self.song_representations = None
         self.unique_users = None
         self.unique_songs = None
         self.user2index = None
@@ -47,6 +49,8 @@ class SVDBasedRecommender(BaseEstimator, ClassifierMixin):
         self.users_representations = svd.transform(sparse_matrix)
 
         self.song_representations = svd.components_
+
+        return self
 
     def predict(self, X, y=None, **kwargs):
         y_pred = []
